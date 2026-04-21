@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      text-align: center;
+    }
+
+    .item {
+      border: 1px solid #555;
+      margin: 15px auto;
+      padding: 15px;
+      width: 250px;
+      border-radius: 10px;
+      background: #222;
+    }
+
+    button {
+      padding: 8px 12px;
+      border: none;
+      margin-top: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .remove {
+      background: red;
+      color: white;
+    }
+
+    .back {
+      background: #00c3ff;
+    }
+  </style>
+</head>
+
+<body onload="checkAuth(); loadCart()">
+
+<h1>🛒 Your Cart</h1>
+
+<div id="cartItems"></div>
+
+<h2 id="total"></h2>
+
+<br>
+
+<button class="back" onclick="window.location.href='index.html'">Back to Store</button>
+<button class="back" onclick="clearCart()" style="background:#d32f2f; margin-left:10px;">Clear Cart</button>
+
+<script src="script.js"></script>
+
+</body>
+</html>

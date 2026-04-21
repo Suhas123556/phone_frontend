@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #42275a, #734b6d);
+      font-family: Arial;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+    }
+
+    button {
+      padding: 10px;
+      background: #00c3ff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>Register</h1>
+
+  <input id="username" placeholder="Username"><br>
+  <input id="password" type="password" placeholder="Password"><br>
+
+  <button onclick="register()">Register</button>
+</div>
+
+<script>
+const API_BASE = "http://13.63.166.55:3000";
+
+async function register(){
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  if(!username || !password){
+    alert("Please enter username and password");
+    return;
+  }
+
+  try{
+    const res = await fetch(`${API_BASE}/register`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({username, password})
+    });
+
+    const data = await res.json();
+
+    if(res.ok){
+      alert("Registration successful! Redirecting to login...");
+      window.location.href = "login.html";
+    }else{
+      alert(data.message || "Registration failed");
+    }
+  }catch(err){
+    console.log(err);
+    alert("Registration failed. Please try again.");
+  }
+}
+</script>
+
+</body>
+</html>

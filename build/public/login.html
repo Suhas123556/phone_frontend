@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      font-family: Arial;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+    }
+
+    button {
+      padding: 10px;
+      background: #00c3ff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>Login</h1>
+
+  <input id="username" placeholder="Username"><br>
+  <input id="password" type="password" placeholder="Password"><br>
+
+  <button onclick="login()">Login</button>
+
+  <p><a href="register.html" style="color:yellow">Register</a></p>
+</div>
+
+<script>
+const API_BASE = "http://localhost:3000";
+
+async function login(){
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  if(!username || !password){
+    alert("Please enter username and password");
+    return;
+  }
+
+  try{
+    const res = await fetch(`${API_BASE}/login`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({username, password})
+    });
+
+    const data = await res.json();
+
+    console.log("LOGIN RESPONSE:", data);
+
+    if(res.ok){
+      localStorage.setItem("token", data.token || "userLoggedIn");
+      alert("Login successful");
+      window.location.href = "index.html";
+    }else{
+      alert(data.message || "Invalid username or password");
+    }
+  }catch(err){
+    console.log(err);
+    alert("Login failed. Please try again.");
+  }
+}
+</script>
+
+</body>
+</html>

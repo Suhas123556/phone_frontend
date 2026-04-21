@@ -1,0 +1,140 @@
+/* PHONES GRID */
+
+.phones{
+
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:20px;
+padding:30px;
+
+}
+
+/* PHONE CARD */
+
+.phone{
+
+background:white;
+padding:10px;
+border-radius:10px;
+text-align:center;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+width:180px;
+margin:auto;
+
+}
+
+/* FIX IMAGE SIZE */
+
+.phone img{
+
+width:80px;
+height:120px;
+object-fit:contain;
+display:block;
+margin:auto;
+
+}
+
+.phone h3{
+
+font-size:14px;
+margin:5px 0;
+
+}
+
+.phone p{
+
+color:#2b7cff;
+font-weight:bold;
+
+}
+
+.phone button{
+
+background:#2b7cff;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:5px;
+cursor:pointer;
+
+}
+
+/* LOGIN PAGE */
+.login-body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 20% 20%, #2a9d8f 0%, #264653 70%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-box {
+  width: min(360px, 90vw);
+  padding: 32px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  color: #fefefe;
+  text-align: center;
+}
+
+.login-box h1 {
+  margin: 0 0 18px;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: #edf2f4;
+}
+
+.login-box input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-box input:focus {
+  border-color: #2ab7b0;
+  box-shadow: 0 0 0 3px rgba(42, 183, 176, 0.3);
+}
+
+.login-box button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #2ab7b0, #2a9d8f);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.login-box.register-box button,
+#registerBtn {
+  background: linear-gradient(90deg, #ef476f, #ff9a8d);
+}
+
+.login-box.register-box h1 {
+  color: #ffd166;
+}
+
+.login-box button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.login-box button:active {
+  transform: translateY(0);
+}

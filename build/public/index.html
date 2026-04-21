@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mobile Store</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: white;
+      text-align: center;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 30px;
+      background: rgba(0,0,0,0.3);
+    }
+
+    .logout {
+      background: red;
+      color: white;
+      padding: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.1);
+      margin: 15px;
+      padding: 15px;
+      width: 220px;
+      border-radius: 15px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .add { background: #00c3ff; }
+    .remove { background: red; color: white; }
+
+    button {
+      padding: 8px;
+      margin-top: 10px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body onload="checkAuth(); loadProducts()">
+
+<header>
+  <h2>📱 Mobile Store</h2>
+  <button class="logout" onclick="logout()">Logout</button>
+</header>
+
+<h1>Welcome 🎉</h1>
+
+<div class="products" id="products"></div>
+
+<h2>🛒 Cart</h2>
+<div id="cart"></div>
+<h3 id="total"></h3>
+
+<script>
+const API_BASE = "http://localhost:3000";
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+// Auth
+function checkAuth(){
+  if(!localStorage.getItem("token")){
+    window.location.href = "login.html";
+  }
+}
+
+// Logout
+function logout(){
+  localStorage.removeItem("token");
+  window.location.href = "login.html";
+}
+
+// Load products
+async function loadProducts(){
+  const res = await fetch(`${API_BASE}/products`);
+  const data = await res.json();
+
+  const container = document.getElementById("products");
+  container.innerHTML = "";
+
+  data.forEach(p => {
+    container.innerHTML += `
+      <div class="card">
+        <img src="${p.image}">
+        <h3>${p.name}</h3>
+        <p>₹${p.price}</p>
+        <button class="add" onclick="addToCart('${p.name}', ${p.price})">Add</button>
+      </div>
+    `;
+  });
+
+  renderCart();
+}
+
+// Cart
+function addToCart(name, price){
+  cart.push({name, price});
+  saveCart();
+  renderCart();
+}
+
+function removeItem(i){
+  cart.splice(i,1);
+  saveCart();
+  renderCart();
+}
+
+function saveCart(){
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function renderCart(){
+  const c = document.getElementById("cart");
+  const t = document.getElementById("total");
+
+  c.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item,i)=>{
+    total += item.price;
+
+    c.innerHTML += `
+      <div class="card">
+        <h3>${item.name}</h3>
+        <p>₹${item.price}</p>
+        <button class="remove" onclick="removeItem(${i})">Remove</button>
+      </div>
+    `;
+  });
+
+  t.innerText = "Total: ₹" + total;
+}
+</script>
+
+</body>
+</html>
