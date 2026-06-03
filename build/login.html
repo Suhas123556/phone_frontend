@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Register</title>
+  <title>Login</title>
 
   <style>
     body {
-      background: linear-gradient(135deg, #42275a, #734b6d);
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
       font-family: Arial;
       color: white;
       display: flex;
@@ -39,18 +39,20 @@
 <body>
 
 <div class="box">
-  <h1>Register</h1>
+  <h1>Login</h1>
 
   <input id="username" placeholder="Username"><br>
   <input id="password" type="password" placeholder="Password"><br>
 
-  <button onclick="register()">Register</button>
+  <button onclick="login()">Login</button>
+
+  <p><a href="register.html" style="color:yellow">Register</a></p>
 </div>
 
 <script>
-const API_BASE = "http://13.63.166.55:3000";
+const API_BASE = "http://13.49.223.173:3000";
 
-async function register(){
+async function login(){
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
@@ -60,7 +62,7 @@ async function register(){
   }
 
   try{
-    const res = await fetch(`${API_BASE}/register`, {
+    const res = await fetch(`${API_BASE}/login`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({username, password})
@@ -68,15 +70,18 @@ async function register(){
 
     const data = await res.json();
 
+    console.log("LOGIN RESPONSE:", data);
+
     if(res.ok){
-      alert("Registration successful! Redirecting to login...");
-      window.location.href = "login.html";
+      localStorage.setItem("token", data.token || "userLoggedIn");
+      alert("Login successful");
+      window.location.href = "index.html";
     }else{
-      alert(data.message || "Registration failed");
+      alert(data.message || "Invalid username or password");
     }
   }catch(err){
     console.log(err);
-    alert("Registration failed. Please try again.");
+    alert("Login failed. Please try again.");
   }
 }
 </script>

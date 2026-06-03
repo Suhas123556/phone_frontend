@@ -1,6 +1,6 @@
 // ================= BASE API CONFIG =================
 // Replace the IP below with your backend machine address (or use 13.51.176.139 when running locally)
-const API_BASE = "http://localhost:3000";
+const API_BASE = "http://13.49.223.173";
 
 // ================= REGISTER =================
 async function register(){
